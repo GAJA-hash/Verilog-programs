@@ -1,0 +1,34 @@
+Behavioral Modeling:	
+module adder(s,cout,a,b);
+input [7:0]a,b;
+output cout;
+output [7:0]s;
+reg cout;
+reg [7:0]s;
+reg [8:0]temp;
+always @(a,b)
+begin
+temp=a+b;
+s=temp[7:0];
+cout=temp[8];
+end
+endmodule
+
+
+
+
+//Test  Bench
+module  testbench;
+
+reg [7:0]a,b;
+wire [7:0]s;
+wire cout;
+rippleadd a1(s,cout,a,b);
+initial
+begin
+#100a=8'b00001111;b=8'b10101010;
+#100  a=8'b11111111;b=8'b11111111;
+#100 a=8'b00000000;b=8'b10101010;
+end 
+endmodule
+
