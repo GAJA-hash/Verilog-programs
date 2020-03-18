@@ -1,0 +1,40 @@
+//Gate-level description of Full Adder using two Half Adder
+//Description of Half Adder 
+module halfadder(S,Cout,x,y);
+input x,y;
+output S,Cout;
+
+//Instantiate primitive gates
+xor (S,x,y);
+and (Cout,x,y);
+endmodule
+//Description of Full Adder
+module fulladder(S,Cout,x,y,Cin);
+input x,y,Cin;
+output S,Cout;
+wire s1,d1,d2;    //Outputs of first XOR and AND gates
+//Instantiate Half Adder
+halfadder ha_1(s1,d1,x,y);
+halfadder ha_2(S,d2,s1,Cin);
+or or_gate(Cout,d2,d1);
+endmodule
+//Stimulus for testing Full Adder
+module simulation;
+reg x,y,Cin;
+wire S,Cout;
+
+//Instantiate Full Adder
+full adder fa_test(S,Cout,x,y,Cin);
+initial
+begin
+x=1'b0; y=1'b0; Cin=1'b0;
+#100	x=1'b0; y=1'b0; Cin=1'b1;
+#100	x=1'b0; y=1'b1; Cin=1'b0;
+#100	x=1'b0; y=1'b1; Cin=1'b1;
+#100	x=1'b1; y=1'b0; Cin=1'b0;
+#100	x=1'b1; y=1'b0; Cin=1'b1;
+#100	x=1'b1; y=1'b1; Cin=1'b0;
+#100	x=1'b1; y=1'b1; Cin=1'b1;
+end
+endmodule
+
